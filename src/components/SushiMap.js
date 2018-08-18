@@ -93,12 +93,9 @@ export class SushiMap extends Component {
 
 SushiMap.propTypes = {
   google: PropTypes.object.isRequired,
-  onToggle: PropTypes.func.isRequired,
   onMarkerCreated: PropTypes.func.isRequired,
   onMarker: PropTypes.object,
-  onInfoWindowClose: PropTypes.func.isRequired,
   onVisible: PropTypes.bool.isRequired,
-  onMapClicked: PropTypes.func.isRequired,
   center: PropTypes.object.isRequired,
   zoom: PropTypes.number.isRequired,
   sushis: PropTypes.array.isRequired,

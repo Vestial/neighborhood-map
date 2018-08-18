@@ -49,7 +49,6 @@ class App extends Component {
         });
         const foundSushis = sushiList;
         this.setState({ sushiList, foundSushis });
-        console.log(sushiList);
       });
   }
 

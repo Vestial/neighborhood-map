@@ -8,7 +8,6 @@ function Filter(props) {
     <div className="filter-container">
       <input
         className="input"
-        inputProps={{ "aria-label": "Search a sushi restaurant by name" }}
         type="text"
         placeholder="Find a restaurant"
         value={props.onQuery}
@@ -19,7 +18,6 @@ function Filter(props) {
 }
 
 Filter.propTypes = {
-  onQuery: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired
 };
 
