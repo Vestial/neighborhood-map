@@ -23,5 +23,5 @@
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "http://vestial.github.io/sushi-finder"
+  "homepage": "http://vestial.github.io/neighborhood-map"
 }

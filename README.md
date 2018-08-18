@@ -1,6 +1,6 @@
 # Sushi Restaurants Map
 
-[View the project live.](http://vestial.github.io/sushi-finder)
+[View the project live.](http://vestial.github.io/neighborhood-map)
 
 This project is part of the Udacity Frontend Web Developer Nanodegree (full Google Scholarship).
 The purpose of this project is to create a single page web app from scratch using React and integrate
