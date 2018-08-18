@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import SushiMap from "./components/SushiMap";
 import sortBy from "sort-by";
+import 'bulma/css/bulma.css'
 
 class App extends Component {
   markers = [];
@@ -102,21 +103,30 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SushiMap
-          center={this.state.center}
-          zoom={this.state.zoom}
-          sushis={this.state.foundSushis}
-          selectedPlace={this.state.selectedPlace}
-          onMarker={this.state.activeMarker}
-          onVisible={this.state.showingInfoWindow}
-          onToggle={this.toggleAside}
-          onMarkerCreated={this.onMarkerCreated}
-          onMarkerClick={this.clickMarker}
-          onInfoWindowClose={this.closeInfoWindow}
-          onMapClicked={this.clickMap}
-          onFocus={this.zoomPlace}
-          onDezoom={this.getFar}
-        />
+        <nav className="navbar is-info is-fixed-top">
+          <div className="navbar-brand has-text-centered">
+            <h1 className="navbar-item is-size-2">Sushi Finder</h1>
+          </div>
+        </nav>
+        <main className="main-map">
+          <section className="map-container">
+            <SushiMap
+              center={this.state.center}
+              zoom={this.state.zoom}
+              sushis={this.state.foundSushis}
+              selectedPlace={this.state.selectedPlace}
+              onMarker={this.state.activeMarker}
+              onVisible={this.state.showingInfoWindow}
+              onToggle={this.toggleAside}
+              onMarkerCreated={this.onMarkerCreated}
+              onMarkerClick={this.clickMarker}
+              onInfoWindowClose={this.closeInfoWindow}
+              onMapClicked={this.clickMap}
+              onFocus={this.zoomPlace}
+              onDezoom={this.getFar}
+            />
+          </section>
+        </main>
       </div>
     );
   }

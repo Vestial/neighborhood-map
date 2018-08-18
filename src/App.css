@@ -22,6 +22,15 @@
   font-size: large;
 }
 
+.main-map {
+  height: 85vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.map-container {
+  width: 100%;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
