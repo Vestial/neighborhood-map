@@ -1,35 +1,45 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  max-height: 100hv
 }
 
 .App-header {
   background-color: #222;
-  height: 150px;
-  padding: 20px;
   color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
+  position: relative;
 }
 
 .main-map {
-  height: 85vh;
   display: flex;
   flex-direction: row;
 }
 
+.sidebar {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 30%;
+  min-width: 270px;
+  background-color: #353535;
+  border-right: 1px solid #101010;
+  overflow-y: scroll;
+  transition: all 500ms ease-in-out;
+}
+
 .map-container {
   width: 100%;
+  position: relative;
+}
+
+.sushi-list {
+  list-style-type: none;
+  text-align: left;
+  padding-left: 0;
+}
+
+.sushi-list li {
+  margin: 0.5em;
 }
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

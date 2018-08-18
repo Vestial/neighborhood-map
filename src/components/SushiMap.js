@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import sushi from "../assets/sushi.png";
 
 export class SushiMap extends Component {
+
   render() {
     return (
       <section className="map">

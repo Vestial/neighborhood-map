@@ -1,23 +1,21 @@
 import React, { Component } from "react";
 import "./App.css";
 import SushiMap from "./components/SushiMap";
+import SushiList from "./components/SushiList";
 import sortBy from "sort-by";
-import 'bulma/css/bulma.css'
+import "bulma/css/bulma.css";
 
 class App extends Component {
   markers = [];
 
   state = {
-    // Default map's values
     center: { lat: 52.3774769, lng: 9.7407584 },
     zoom: 14,
 
-    // Parameters to set active marker and show InfoWindow on map component
     activeMarker: {},
     selectedPlace: {},
     showingInfoWindow: false,
 
-    // Array with all fetched sushis
     sushiList: [],
     foundSushis: []
   };
@@ -55,6 +53,20 @@ class App extends Component {
     }
   };
 
+  selectSushi = sushi => {
+    for (const createdMarker of this.markers) {
+      if (createdMarker.props.id === sushi.id) {
+        new createdMarker.props.google.maps.event.trigger(
+          createdMarker.marker,
+          "click"
+        );
+      }
+    }
+    if (window.screen.width < 600) {
+      this.setState({ toggled: false });
+    }
+    this.zoomPlace(sushi.location.lat, sushi.location.lng);
+  };
   clickMarker = (props, marker) => {
     this.setState({
       selectedPlace: props,
@@ -109,6 +121,12 @@ class App extends Component {
           </div>
         </nav>
         <main className="main-map">
+          <aside className="sidebar">
+            <SushiList
+              sushis={this.state.foundSushis}
+              sushiClick={this.selectSushi}
+            />
+          </aside>
           <section className="map-container">
             <SushiMap
               center={this.state.center}
