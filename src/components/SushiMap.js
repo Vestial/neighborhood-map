@@ -4,12 +4,12 @@ import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import MapStyles from "./MapStyles.json"; 
+import MapStyles from "./MapStyles.json";
 import Button from "@material-ui/core/Button";
 import sushi from "../assets/sushi.png";
 
+//Create a map component with the help of Google Maps API
 export class SushiMap extends Component {
-
   render() {
     return (
       <section className="map">
@@ -40,7 +40,7 @@ export class SushiMap extends Component {
               }
             />
           ))}
-
+        
           <InfoWindow
             marker={this.props.onMarker}
             onClose={this.props.onInfoWindowClose}

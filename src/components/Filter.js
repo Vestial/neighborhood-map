@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import "bulma/css/bulma.css";
 
+//This function filters the restaurants in the restaurant list
 function Filter(props) {
   return (
     <div className="filter-container">

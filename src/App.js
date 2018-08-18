@@ -18,25 +18,32 @@ class App extends Component {
   markers = [];
 
   state = {
+    //Default values of the map zoom and location
     center: { lat: 52.3774769, lng: 9.7407584 },
     zoom: 14,
 
+    //Map markers state
     activeMarker: {},
     selectedPlace: {},
     showingInfoWindow: false,
 
+    //Arrays containing sushi restaurants
     sushiList: [],
     foundSushis: [],
+
+    //Sidebar toggle value. Default value is false for mobile usage.
     toggled: false
   };
 
   componentDidMount() {
     this.getSushiList();
+    //Toggle the sidebar for users with larger screens
     if (window.screen.width > 650) {
       this.setState({ toggled: true });
     }
   }
 
+  //Get a list of sushi restaurants from Hannover area with the help of Foursquare API
   getSushiList() {
     fetch(
       "https://api.foursquare.com/v2/venues/search?near=Hanover&query=sushi&category=4bf58dd8d48988d111941735&limit=100&radius=6000&intent=browse&client_id=QEALSM14NUIOQ3IYJR5GOA3BVXC1LEODK3DK2RIEXFWILEEX&client_secret=NHD5ISSOZSKMGBOMAQN1024SR4HW4AGADQ4KVIJARTJVHBPV&v=20180101&locale=en"
@@ -66,12 +73,14 @@ class App extends Component {
       });
   }
 
+  //A helper function to add a new marker to the markers array
   onMarkerCreated = marker => {
     if (marker !== null) {
       this.markers.push(marker);
     }
   };
 
+  //Compare the id of sushi restaurant with the created marker. Triggers the marker event if they match.
   selectSushi = sushi => {
     for (const createdMarker of this.markers) {
       if (createdMarker.props.id === sushi.id) {
@@ -86,6 +95,8 @@ class App extends Component {
     }
     this.zoomPlace(sushi.location.lat, sushi.location.lng);
   };
+
+  //Set the marker state to the selected marker
   clickMarker = (props, marker) => {
     this.setState({
       selectedPlace: props,
@@ -95,12 +106,14 @@ class App extends Component {
     this.zoomPlace(props.position.lat, props.position.lng);
   };
 
+  //A helper function to help in zooming to a specified latitude and longitude
   zoomPlace = (focusLat, focusLng) => {
     let center = { lat: focusLat + 0.002, lng: focusLng };
     let zoom = 15;
     this.setState({ center, zoom });
   };
 
+  //A helper function to help in centering and zooming
   getCenterAndZoom() {
     let objectsBounds = new window.google.maps.LatLngBounds();
     let cenLat;
@@ -131,6 +144,7 @@ class App extends Component {
     this.setState({ center, zoom });
   }
 
+  //Search sushi restaurants in the area and put the result in the foundSushi array
   searchSushis = query => {
     const { sushiList } = this.state;
 
@@ -144,6 +158,7 @@ class App extends Component {
     this.setState({ foundSushis, query }, () => this.getCenterAndZoom());
   };
 
+  //Toggle the sidebar
   toggleSidebar = () => {
     if (this.state.toggled === true) {
       this.setState({ toggled: false });
