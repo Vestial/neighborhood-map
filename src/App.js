@@ -5,7 +5,10 @@ import SushiList from "./components/SushiList";
 import Filter from "./components/Filter";
 import sortBy from "sort-by";
 import escapeRegExp from "escape-string-regexp";
+
+import IconButton from '@material-ui/core/IconButton';
 import "bulma/css/bulma.css";
+import "font-awesome/css/font-awesome.min.css"
 
 class App extends Component {
   markers = [];
@@ -19,7 +22,8 @@ class App extends Component {
     showingInfoWindow: false,
 
     sushiList: [],
-    foundSushis: []
+    foundSushis: [],
+    toggled: true
   };
 
   componentDidMount() {
@@ -127,16 +131,27 @@ class App extends Component {
     this.setState({ foundSushis, query }, () => this.getCenterAndZoom());
   };
 
+  toggleSidebar = () => {
+    if (this.state.toggled === true) {
+      this.setState({ toggled: false })
+    } else {
+      this.setState({ toggled: true })
+    }
+  }
+
   render() {
     return (
       <div className="App">
         <nav className="navbar is-info header">
           <div className="navbar-brand has-text-centered">
+            <IconButton className="navbar-item icon-button" onClick={this.toggleSidebar} aria-label="menu" aria-expanded="false">
+              <i className="fa fa-bars" />
+            </IconButton>
             <h1 className="navbar-item is-size-2">Sushi Finder</h1>
           </div>
         </nav>
         <main className="main-map">
-          <aside className="sidebar">
+          <aside className= {this.state.toggled === true ? 'sidebar' : 'sidebar toggle' }>
             <Filter onQuery={this.state.query} onSearch={this.searchSushis} />
             <SushiList
               sushis={this.state.foundSushis}
