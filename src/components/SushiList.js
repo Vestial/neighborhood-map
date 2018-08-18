@@ -18,7 +18,7 @@ function SushiList(props) {
             <button
               aria-label={ sushi.name }
               id={ sushi.id }
-              className='button is-primary is-fullwidth'
+              className='button is-primary has-background-grey is-fullwidth'
               onClick={() => props.sushiClick(sushi)}
               style={ style }>
                 {sushi.name}

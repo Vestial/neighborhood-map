@@ -4,6 +4,7 @@ import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import MapStyles from "./MapStyles.json"; 
 import Button from "@material-ui/core/Button";
 import sushi from "../assets/sushi.png";
 
@@ -19,6 +20,7 @@ export class SushiMap extends Component {
           center={this.props.center}
           initialCenter={this.props.center}
           initialZoom={this.props.zoom}
+          styles={MapStyles}
         >
           {this.props.sushis.map(sushi => (
             <Marker
