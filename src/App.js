@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import "./App.css";
 import SushiMap from "./components/SushiMap";
 import SushiList from "./components/SushiList";
+import Filter from "./components/Filter";
 import sortBy from "sort-by";
+import escapeRegExp from "escape-string-regexp";
 import "bulma/css/bulma.css";
 
 class App extends Component {
@@ -112,16 +114,30 @@ class App extends Component {
     this.setState({ center, zoom });
   }
 
+  searchSushis = query => {
+    const { sushiList } = this.state;
+
+    let foundSushis;
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), "i");
+      foundSushis = sushiList.filter(sushi => match.test(sushi.name));
+    } else {
+      foundSushis = sushiList;
+    }
+    this.setState({ foundSushis, query }, () => this.getCenterAndZoom());
+  };
+
   render() {
     return (
       <div className="App">
-        <nav className="navbar is-info is-fixed-top">
+        <nav className="navbar is-info header">
           <div className="navbar-brand has-text-centered">
             <h1 className="navbar-item is-size-2">Sushi Finder</h1>
           </div>
         </nav>
         <main className="main-map">
           <aside className="sidebar">
+            <Filter onQuery={this.state.query} onSearch={this.searchSushis} />
             <SushiList
               sushis={this.state.foundSushis}
               sushiClick={this.selectSushi}
