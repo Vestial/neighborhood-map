@@ -1,14 +1,18 @@
 import React, { Component } from "react";
-import "./App.css";
 import SushiMap from "./components/SushiMap";
 import SushiList from "./components/SushiList";
 import Filter from "./components/Filter";
 import sortBy from "sort-by";
 import escapeRegExp from "escape-string-regexp";
 
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from "@material-ui/core/IconButton";
 import "bulma/css/bulma.css";
-import "font-awesome/css/font-awesome.min.css"
+import "font-awesome/css/font-awesome.min.css";
+import "./App.css";
+
+window.gm_authFailure = () => {
+  alert("Google Maps failed to load!");
+};
 
 class App extends Component {
   markers = [];
@@ -23,11 +27,14 @@ class App extends Component {
 
     sushiList: [],
     foundSushis: [],
-    toggled: true
+    toggled: false
   };
 
   componentDidMount() {
     this.getSushiList();
+    if (window.screen.width > 650) {
+      this.setState({ toggled: true });
+    }
   }
 
   getSushiList() {
@@ -49,6 +56,13 @@ class App extends Component {
         });
         const foundSushis = sushiList;
         this.setState({ sushiList, foundSushis });
+      })
+      .catch(err => {
+        alert("An error occured when trying to fetch places!");
+        console.error(
+          "Warning, an error occurred trying to fetch places from Foursquare Places API",
+          err
+        );
       });
   }
 
@@ -132,25 +146,34 @@ class App extends Component {
 
   toggleSidebar = () => {
     if (this.state.toggled === true) {
-      this.setState({ toggled: false })
+      this.setState({ toggled: false });
     } else {
-      this.setState({ toggled: true })
+      this.setState({ toggled: true });
     }
-  }
+  };
 
   render() {
     return (
       <div className="App">
         <nav className="navbar is-info header">
           <div className="navbar-brand has-text-centered">
-            <IconButton className="navbar-item icon-button" onClick={this.toggleSidebar} aria-label="menu" aria-expanded="false">
+            <IconButton
+              className="navbar-item icon-button"
+              onClick={this.toggleSidebar}
+              aria-label="menu"
+              aria-expanded="false"
+            >
               <i className="fa fa-bars" />
             </IconButton>
             <h1 className="navbar-item is-size-2">Sushi Finder</h1>
           </div>
         </nav>
         <main className="main-map">
-          <aside className= {this.state.toggled === true ? 'sidebar' : 'sidebar toggle' }>
+          <aside
+            className={
+              this.state.toggled === true ? "sidebar" : "sidebar toggle"
+            }
+          >
             <Filter onQuery={this.state.query} onSearch={this.searchSushis} />
             <SushiList
               sushis={this.state.foundSushis}

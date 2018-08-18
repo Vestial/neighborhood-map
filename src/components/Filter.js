@@ -7,6 +7,8 @@ function Filter(props) {
   return (
     <div className="filter-container">
       <input
+        role="search"
+        aria-label="search text"
         className="input"
         type="text"
         placeholder="Find a restaurant"
